@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<style>
+body{ font-family:Arial; margin:0; background:#9eade4; }
+header{ background:#841e7b; color:white; text-align:center; padding:18px; font-size:24px; }
+.container{ max-width:600px; margin:auto; padding:20px; }
+input{ width:70%; padding:10px; border-radius:8px; border:1px solid #ccc; }
+button{ padding:10px 16px; background:#841e7b; border:none; border-radius:8px; color:white; cursor:pointer; }
+ul{ list-style:none; padding:0; }
+li{
+    background:white; margin:8px 0; padding:10px;
+    border-radius:8px; display:flex; justify-content:space-between;
+    border:1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+<header>🛒 Lista de Compras</header>
+
+<div class="container">
+    <input type="text" id="item" placeholder="Escribe un artículo">
+    <button onclick="agregar()">Agregar</button>
+
+    <ul id="lista"></ul>
+
+    <br>
+    <a href="index.html"><button>⬅ Volver</button></a>
+</div>
+
+<script>
+let lista = document.getElementById("lista");
+
+function guardar(){
+    localStorage.setItem("listaCompras", lista.innerHTML);
+}
+
+function cargar(){
+    let datos = localStorage.getItem("listaCompras");
+    if(datos){ lista.innerHTML = datos; }
+}
+cargar();
+
+function agregar(){
+    let texto = document.getElementById("item").value;
+    if(texto.trim()=="") return;
+    let li = document.createElement("li");
+    li.innerHTML = texto + " <button onclick='this.parentNode.remove(); guardar();'>X</button>";
+    lista.appendChild(li);
+    document.getElementById("item").value = "";
+    guardar();
+}
+</script>
+    
+</body>
+</html>
